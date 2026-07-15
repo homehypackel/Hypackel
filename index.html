@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hypackel - Android Games Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0d0e12;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 22px 60px;
+            background-color: #000000;
+            border-bottom: 3px solid #1c1d24;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-link {
+            display: inline-flex;
+            align-items: center;
+            transition: opacity 0.2s ease;
+        }
+
+        .logo-link:hover {
+            opacity: 0.85;
+        }
+
+        .logo-img {
+            height: 60px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .nav-links a {
+            color: #c5c6c7;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 700;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links a.active, .nav-links a:hover {
+            color: #00e676;
+        }
+
+        .hero-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 100px 20px;
+            background: linear-gradient(rgba(13, 14, 18, 0.85), rgba(13, 14, 18, 0.95)), 
+                        url('https://images.unsplash.com/photo-1618424181497-157f25b6ddd5?q=80&w=1920') no-repeat center center/cover;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .hero-content h1 {
+            font-size: 4.5rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            line-height: 1.1;
+            letter-spacing: -1px;
+        }
+
+        .highlight {
+            color: #00e676;
+        }
+
+        .subtitle {
+            color: #b5b5b5;
+            font-size: 1.4rem;
+            margin-bottom: 45px;
+            font-weight: 400;
+        }
+
+        .search-container {
+            display: flex;
+            max-width: 700px;
+            margin: 0 auto 35px auto;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        }
+
+        .search-container input {
+            flex: 1;
+            padding: 20px 25px;
+            background-color: #16171d;
+            border: 1px solid #232530;
+            color: #ffffff;
+            font-size: 1.15rem;
+            outline: none;
+        }
+
+        .search-container button {
+            background-color: #00e676;
+            color: #000000;
+            border: none;
+            padding: 0 45px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .search-container button:hover {
+            background-color: #00b355;
+            color: #ffffff;
+        }
+
+        .popular-tags {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 45px;
+        }
+
+        .tags-label {
+            color: #777;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+        }
+
+        .tag {
+            color: #c5c6c7;
+            text-decoration: none;
+            background-color: #1c1d24;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+
+        .tag:hover {
+            background-color: #00e676;
+            color: #000000;
+        }
+
+        .cta-btn-container {
+            margin-top: 15px;
+        }
+
+        .play-now-btn {
+            display: inline-block;
+            background-color: #00e676;
+            color: #000000;
+            text-decoration: none;
+            font-size: 1.4rem;
+            font-weight: 800;
+            padding: 20px 55px;
+            border-radius: 50px;
+            box-shadow: 0 6px 25px rgba(0, 230, 118, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .play-now-btn:hover {
+            background-color: #ffffff;
+            color: #000000;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(255, 255, 255, 0.4);
+        }
+
+        .features-section {
+            background-color: #090a0d;
+            padding: 80px 50px;
+            text-align: center;
+        }
+
+        .features-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .features-header p {
+            color: #8c8e99;
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 50px auto;
+            line-height: 1.5;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background-color: #111217;
+            border: 1px solid #1c1d24;
+            border-radius: 12px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: #00e676;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .feature-card p {
+            color: #7d808c;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 50px auto 0 auto;
+            background-color: #111217;
+            border: 1px solid #1c1d24;
+            border-radius: 12px;
+            padding: 40px 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            text-align: center;
+        }
+
+        .stat-item h4 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #00e676;
+            margin-bottom: 5px;
+        }
+
+        .stat-item p {
+            color: #7d808c;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .info-box-container {
+            padding: 60px 50px 20px 50px;
+            background-color: #0d0e12;
+            display: flex;
+            justify-content: center;
+        }
+
+        .info-box {
+            background-color: #13141a;
+            border: 1px solid #1c1d24;
+            border-radius: 8px;
+            padding: 35px;
+            max-width: 1200px;
+            text-align: left;
+        }
+
+        .info-box p {
+            color: #8c8e99;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .main-footer {
+            background-color: #000000;
+            border-top: 1px solid #1c1d24;
+            margin-top: 40px;
+            padding: 60px 60px 0 60px;
+        }
+
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 40px;
+            padding-bottom: 50px;
+        }
+
+        .footer-brand {
+            flex: 1;
+            max-width: 650px;
+        }
+
+        .footer-brand .footer-logo {
+            height: 45px;
+            margin-bottom: 20px;
+        }
+
+        .footer-brand p {
+            color: #8c8e99;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .footer-column {
+            min-width: 250px;
+            text-align: right;
+        }
+
+        .footer-column h3 {
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .contact-list {
+            list-style: none;
+        }
+
+        .contact-list li {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: #8c8e99;
+            font-size: 1rem;
+        }
+
+        .contact-list li i {
+            color: #00e676;
+        }
+
+        .contact-list li a {
+            color: #8c8e99;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .contact-list li a:hover {
+            color: #00e676;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 25px 0;
+            border-top: 1px solid #111217;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .footer-copyright {
+            color: #4b515d;
+            text-align: center;
+        }
+
+        @media (max-width: 992px) {
+            .features-grid, .stats-container {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            .stats-container {
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.5rem; }
+            .subtitle { font-size: 1.1rem; }
+            .navbar { padding: 15px 20px; }
+            .logo-img { height: 45px; }
+            .nav-links a { font-size: 1.05rem; }
+            .search-container input, .search-container button { padding: 15px 20px; font-size: 1rem; }
+            .search-container button { padding: 0 25px; }
+            .features-section { padding: 50px 20px; }
+            .info-box-container { padding: 20px; }
+            .play-now-btn { font-size: 1.1rem; padding: 14px 35px; }
+            .main-footer { padding: 40px 20px 0 20px; }
+            .footer-grid { flex-direction: column; gap: 30px; text-align: center; align-items: center; }
+            .footer-column { text-align: center; min-width: auto; }
+            .footer-bottom { padding: 20px 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo-container">
+            <a href="https://hypackell.com/" class="logo-link">
+                <img src="logo.webp" alt="The Hypackel Logo" class="logo-img">
+            </a>
+        </div>
+        <nav class="nav-links">
+            <a href="https://hypackell.com/category/gaming/" class="nav-item active"><i class="fas fa-gamepad"></i> Gaming</a>
+        </nav>
+    </header>
+
+    <main class="hero-section">
+        <div class="hero-content">
+            <h1>Discover & Download the <span class="highlight">Best Android Games on Hypackel</span></h1>
+            <p class="subtitle">Handpicked Android Games. Zero Clutter. Only on Hypackel.</p>
+            
+            <div class="search-container">
+                <input type="text" placeholder="Search Games on Hypackel...">
+                <button type="button">Search</button>
+            </div>
+
+            <div class="popular-tags">
+                <span class="tags-label">POPULAR:</span>
+                <a href="https://hypackell.com/product-category/action/" class="tag">Action</a>
+                <a href="https://hypackell.com/product-category/racing/" class="tag">Racing</a>
+                <a href="https://hypackell.com/category/gaming-pc/" class="tag">Gaming PC</a>
+                <a href="https://hypackell.com/product-category/adventure/" class="tag">Adventure</a>
+                <a href="https://hypackell.com/product-category/arcade/" class="tag">Arcade</a>
+            </div>
+
+            <div class="cta-btn-container">
+                <a href="http://hypackell.com" class="play-now-btn" target="_blank">
+                    <i class="fas fa-play-circle"></i> Play Gaming Right Now
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <section class="features-section">
+        <div class="features-header">
+            <h2>Why Gamers Choose <span class="highlight">TheHypackel</span>?</h2>
+            <p>Hypackel helps Android gamers discover quality games quickly, with every download linking directly to the official Google Play Store.</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                <h3>Only Google Play Links</h3>
+                <p>Every game featured on Hypackel links directly to its official Google Play Store page. We never host APK files, use third-party download sites, or redirect you to unsafe sources. Every download comes straight from Google Play. Simple, safe, every single time.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                <h3>Only the Best, Always</h3>
+                <p>Hypackel doesn't list every Android game available, only the ones truly worth your time. Every game is carefully selected based on gameplay quality, popularity, and overall fun factor. No filler, no random apps, just games you'll enjoy playing.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-sync-alt"></i></div>
+                <h3>New Games Added Regularly</h3>
+                <p>Hypackel's library is always growing. We regularly add new Android games across every genre. Whether you play for five minutes or five hours, there's always something new to discover on Hypackel.</p>
+            </div>
+        </div>
+
+        <div class="stats-container">
+            <div class="stat-item">
+                <h4>1,500+</h4>
+                <p>Hypackel Game Database</p>
+            </div>
+            <div class="stat-item">
+                <h4>5M+</h4>
+                <p>Successful Downloads</p>
+            </div>
+            <div class="stat-item">
+                <h4>24/7</h4>
+                <p>High-Speed Link Uptime</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="info-box-container">
+        <div class="info-box">
+            <p>Finding great Android games shouldn't take hours. Hypackel handpicks the best Android games across every genre and links only to their official Google Play Store pages. Explore by category, discover new favorites, and download safely without worrying about unofficial APKs or unreliable download websites. Simple, secure, and always up to date.</p>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="footer-grid">
+            
+            <div class="footer-brand">
+                <img src="logo.webp" alt="Hypackel Logo" class="footer-logo">
+                <p>Hypackel is your trusted destination for discovering the best Android games. Browse handpicked games by genre, read gaming guides and reviews, and download safely through official Google Play Store links.</p>
+            </div>
+
+            <div class="footer-column">
+                <h3>Contact Support</h3>
+                <ul class="contact-list">
+                    <li>
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:info.hypackell@gmail.com">info.hypackell@gmail.com</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-copyright">
+                &copy; 2026 TheHypackel.com. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
